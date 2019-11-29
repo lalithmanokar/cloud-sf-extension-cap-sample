@@ -1,7 +1,7 @@
 # cloud-sf-extension-cap-sample
 
 ## Description: 
-This repository contains a reference application (`Run Smooth`) that shows how to extend SuccessFactors employee central with an application that runs on SAP Cloud Platform using the Extension Factory service and Cloud Application Programming Model. 
+This repository contains a reference application -`Run Smooth` that shows how to extend SuccessFactors employee central with an application that runs on SAP Cloud Platform using the Extension Factory service and Cloud Application Programming Model. 
 
 This application showcases:
 1. Using SAP Cloud Platform Extension Factory service
@@ -73,7 +73,7 @@ The Run Smooth application is developed using [SAP Cloud Application programming
  
       Format: json
   
-   ![Integration type](https://github.wdf.sap.corp/refapps/cloud-xf-sf-sample/blob/master/documentation/images/integration.PNG)
+   ![Integration type](./documentation/images/integration.PNG)
 
 3. Search for the intelligent service `Employment Termination`. Select it and click on `Select` button.
 
@@ -94,7 +94,7 @@ The Run Smooth application is developed using [SAP Cloud Application programming
  
       OAuth Configuration: Select the configuration created in Step 2.
  
-      ![Destination settings](https://github.wdf.sap.corp/refapps/cloud-xf-sf-sample/blob/master/documentation/images/DestinationSettings.PNG)
+      ![Destination settings](./documentation/images/DestinationSettings.PNG)
   
    9. Click on `save`
  
@@ -139,5 +139,13 @@ No known issues.
 
 ## How to Obtain Support
 
-In case you find a bug, or you need additional support, please open an issue here in GitHub.
+In case you find a bug, or you need additional support, please open an issue [here](https://github.com/SAP-samples/cloud-sf-extension-cap-sample/issues/new) in GitHub.
+
+## To-Do (upcoming changes)
+
+None
+
+## License
+
+Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved. This file is licensed under SAP Sample Code License Agreement, except as noted otherwise in the [LICENSE](/LICENSE) file.
 
