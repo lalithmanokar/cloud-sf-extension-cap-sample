@@ -154,7 +154,7 @@ In this step, you will configure the successFactors system to send message to th
       - click on `Integration` under `Activities`. (on the right-hand side corner)
       - Select the integration created in the previous step. click on `Add integration`
  
-### Step 4: Setup your own IAS tenant for authentication
+### Step 4: Setup your own IAS tenant for authentication [Optional]
 
 1. Request [IAS tenant ID](https://tenants.ias.only.sap/)
 2. Follow [SAP CF subaccount trust configuration](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/7c6aa87459764b179aeccadccd4f91f3.html#loioaedb8eed952b41c4b87c50b92bf651e4)
@@ -164,14 +164,39 @@ In this step, you will configure the successFactors system to send message to th
    Enter the details of the user. Set the initial password for the user from Authentication tab-> password details -> set initial password. 
 6. From the applications tab of your tenant, set the 'Subject Name Identifier' as 'Employee number' for your application and as 'Login Name' for your SF instance. 
 
-## Test the application
+## Demo Script
 
-1. Login to SF demo instance. 
-2. Choose an employee who is a direct report of 'dleal'.
-3. Terminate the employee. Check the workflow participants. 
-4. Proxy as the workflow participants (Paul Atkins and Tessa Walker in case of dleal's reports). Approve the termination
-4. Open the UI application in browser. Login as the dleal. 
-5. You will receive a notification that an employee has be terminated. 
+1. Login to SF demo instance with sfadmin user.
+![step1](./documentation/images/step1.PNG)
+2. Search for Employee David Leal (dleal) in the Employee Directory
+3. Select Employee David Leal
+4. Click on Actions button and Select Org Chart
+![step4](./documentation/images/step4.PNG)
+5. Choose an employee who is a direct report of 'David Leal e.g Penelope Miller(pmiller)
+6. Click on Take Actions button and Select Termination
+![step6](./documentation/images/step6.PNG)
+7. Set values for 
+      - Termination Date
+      - Termination Reason - Early Retirement
+      - Ok to Rehire - Yes
+      - Regret Termination - Yes
+![step7](./documentation/images/step7.PNG)
+8. Click on Save.
+9. In the please confirm your request. Click on the 'Show workflow participants' link. 
+10. Workflow participants would be shown as Paul Atkins (Production Director), Tessa Walker (HR Business Partner Global)
+11. Click on Confirm button
+12. Use Proxy Now functionality and proxy login as Paul Atkins(patkins)
+![step12](./documentation/images/step12.PNG)
+13. In the Home page of Paul Atkins click on tile Approve Requests
+14. Click on Approve button for the request for approval of Early Retirement of Penelope Miller
+![step14](./documentation/images/step14.PNG)
+15. Use Proxy Now functonality and proxy login as Tessa Walker(twalker)
+16. In the Home page of Tessa Walker click on tile Approve Requests
+17. Click on Approve button for the request for approval of Early Retirement of Penelope Miller
+18. Open the Web Application UI for Run Smooth application in browser. 
+19. Login with email address of David Leal(david.leal@bestrunsap.com). 
+20. Click on notifications tile. 
+21. Notification will be displayed regarding Resignation of Penelope Miller along with her Skillset. 
 
 ## Known Issues
 
