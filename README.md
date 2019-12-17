@@ -187,7 +187,9 @@ In this step, you will configure the successFactors system to send message to th
 18. Open the Web Application UI for Run Smooth application in browser. 
 19. Login with email address of David Leal(david.leal@bestrunsap.com). 
 20. Click on notifications tile. 
+![step20](./documentation/images/step20.PNG)
 21. Notification will be displayed regarding Resignation of Penelope Miller along with her Skillset. 
+![step21](./documentation/images/step21.PNG)
 
 ## Known Issues
 
