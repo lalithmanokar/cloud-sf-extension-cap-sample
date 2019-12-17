@@ -1,0 +1,32 @@
+{
+	"welcomeFile": "/index.html",
+	"authenticationMethod": "route",
+	"logout": {
+		"logoutEndpoint": "/do/logout"
+	},
+	"routes": [{
+		"source": "/appconfig",
+		"localDir": ".",
+		"authenticationType": "xsuaa"
+	}, {
+		"source": "^/.*(html|js)$",
+		"localDir": "."
+	}, {
+		"source": "^/sapui5/.*",
+		"localDir": "."
+	}, {
+		"source": "^/.*/webapp/.*",
+		"localDir": ".",
+		"authenticationType": "xsuaa"
+	}, {
+		"source": "/srv_api/(.*)$",
+		"target": "$1",
+		"authenticationType": "none",
+		"destination": "srv_api",
+		"csrfProtection": false
+	}, {
+		"source": "^/(.*)$",
+		"target": "$1",
+		"destination": "sfextension-service"
+	}]
+}

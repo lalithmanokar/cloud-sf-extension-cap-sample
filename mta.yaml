@@ -1,0 +1,96 @@
+ID: cloud-cap-xf-sf
+_schema-version: '2.1'
+description: Success factors Extension
+version: 0.0.1
+modules:
+# DB Module
+  - name: cloud-cap-xf-sf-db
+    type: hdb
+    path: db
+    parameters:
+      memory: 256M
+      disk-quota: 256M
+    requires:
+      - name: cloud-cap-xf-sf-db-hdi-container # <-- HDI container
+
+# NodeJs service Module
+  - name: cloud-cap-xf-sf-srv
+    type: nodejs
+    path: srv
+    parameters:
+      memory: 512M
+      disk-quota: 256M
+    provides:
+      - name: srv_api
+        properties:
+          url: '${default-url}'
+    requires:
+      - name: cloud-cap-xf-sf-db-hdi-container # <-- HDI container
+      - name: sfextension-xsuaa # <-- User Authentication and Authorization
+      - name: sfextension-dest # <-- Destination Service
+      - name: sfextension-epm # <-- Enterprise Messaging Service
+
+# UI Module
+  - name: cloud-cap-xf-sf-app
+    type: html5
+    path: app
+    parameters:
+      disk-quota: 1024MB
+      memory: 1024MB
+    build-parameters:
+      builder: grunt
+    requires:
+      - name: sfextension-dest # <-- Destination Service
+      - name: sfextension-xsuaa # <-- User Authentication and Authorization
+      - name: srv_api
+        group: destinations
+        properties:
+          forwardAuthToken: true
+          name: srv_api
+          url: '~{url}'
+resources:
+# Hana HDI Container
+  - name: cloud-cap-xf-sf-db-hdi-container
+    parameters:
+      service: hanatrial
+      service-plan: hdi-shared
+    properties:
+      hdi-container-name: '${service-name}'
+    type: com.sap.xs.hdi-container
+
+# User Authentication and Authorization
+  - name: sfextension-xsuaa
+    parameters:
+      path: ./xs-security.json
+      service-plan: application
+      service: xsuaa
+    type: org.cloudfoundry.managed-service
+
+# Destination Service
+  - name: sfextension-dest
+    parameters:
+      service: destination
+      service-plan: lite
+    type: org.cloudfoundry.managed-service
+
+# Enterprise Messaging Service
+  - name: sfextension-epm
+    parameters:
+      service: enterprise-messaging
+      service-plan: dev
+      config:
+        emname: sfextension-epm
+        options:
+          management: true
+          messagingrest: true
+          messaging: true
+    type: org.cloudfoundry.managed-service
+
+# Success Factors Extensibility Service
+  - name: sfextension-service
+    parameters:
+      service: sap-successfactors-extensibility
+      service-plan: api-access
+      config:
+        systemName: SFTestSystem # <-- Please Specify Your SuccessFactors System Name
+    type: org.cloudfoundry.managed-service
