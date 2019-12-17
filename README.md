@@ -6,7 +6,7 @@
 This application showcases:
 1. Using SAP Cloud Platform Extension Factory service
 2. Cloud Application Programming Model(CAP) to build application
-3. Handling of SF events via Enterprise Messaging(Webhooks)
+3. Handling of SF events via Enterprise Messaging service
 4. Connectivity with SF REST API’s
 5. SCI(IAS) Tenant integration with SF
 
