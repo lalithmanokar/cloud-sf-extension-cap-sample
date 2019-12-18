@@ -41,7 +41,7 @@ The Run Smooth application is developed using [SAP Cloud Application programming
 
 ### Step 1: Configure trust between SF and CP using Extension Factory
  
-[Refer the document to set up trust, SF destination using Extension Factory.](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/9e33934540c44681817567d6072effb2.html) Follow steps 1,2,3 in the document. 
+[Refer the document to set up trust, SF destination using Extension Factory.](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/9e33934540c44681817567d6072effb2.html) Follow all the 4 steps in this document. 
 In Step 3 of the document, while creating Extension Fatory service instance, provide `sfextension-service` as the name of the instance. 
 
 ### Step 2: Deploy the reference application
