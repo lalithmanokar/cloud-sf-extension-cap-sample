@@ -6,7 +6,7 @@
 This application showcases:
 1. Using SAP Cloud Platform Extension Factory service
 2. Cloud Application Programming Model(CAP) to build application
-3. Handling of SF events via Enterprise Messaging service
+3. Handling of SF events via Enterprise Messaging
 4. Connectivity with SF REST API’s
 5. SCI(IAS) Tenant integration with SF
 
@@ -17,7 +17,7 @@ Managers can maintain the details of their direct reports and the projects that 
 When an employee decides to leave the team/ company, an event is triggered in the SuccessFactors system. The Run Smooth application subscribes to this event and sends out a notification to the manager with the topics to be handed over to fellow team mates and the preferred skill set for the replacement hire to maintain the status quo in the team. 
 
 #### Features:
-* Login with SuccessFactors user Id, password. 
+* Login with SuccessFactors UserId, password. 
 * View the list of projects, employees working on the projects. 
 * Get notification when an employee is leaving the team with the consolidated report on the skills of the employee.
 
@@ -31,35 +31,46 @@ The Run Smooth application is developed using [SAP Cloud Application programming
 
 ## Requirements 
 * [Node js](https://nodejs.org/en/download/)
-* SuccessFactors test/demo instance. 
->Note: Please do not try this application on a productive instance. 
+* SuccessFactors test or demo instance. 
+>Note: Please do not try this application on a productive instance.
 * [Cloud Foundry Command Line Interface (CLI)](https://github.com/cloudfoundry/cli#downloads)
 * Cloud Foundry trial or enterprise account, [sign up for a Cloud Foundry environment trial account on SAP Cloud Platform](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/76e79d62fa0149d5aa7b0698c9a33687.html)
 * To build the multi target application, we need the [Cloud MTA Build tool](https://sap.github.io/cloud-mta-build-tool/), download the tool from [here](https://sap.github.io/cloud-mta-build-tool/download/)
+* For Windows system, install 'MAKE' from https://sap.github.io/cloud-mta-build-tool/makefile/ 
 
 ## Configuration
 
 ### Step 1: Configure trust between SF and CP using Extension Factory
  
-[Refer the document to set up trust, SF destination using Extension Factory.](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/9e33934540c44681817567d6072effb2.html) Follow all the 4 steps in this document. 
-In Step 3 of the document, while creating Extension Fatory service instance, provide `sfextension-service` as the name of the instance. 
+ Follow steps 1, 2 and 4 from in this [document](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/9e33934540c44681817567d6072effb2.html) to set up trust and destination to access SuccessFactors system using Extension Factory.
+> Ignore step 3 in the document. 
 
-### Step 2: Deploy the reference application
+### Step 2: Project Configuration
+1. [Clone](https://help.github.com/articles/cloning-a-repository/) this [repository](../..)
+2. Open [mta.yaml](mta.yaml)
+3. Go to the section `Success Factors Extensibility Service` and modify the SuccessFactors System name as per the name given while registering the System in previous Step. Also, check if the Extension Factory service instance name matches in the `mta.yaml`.
+3. Go to the section `Enterprise Messaging Service`
+4. Check in your CF account which service plan is available for Enterprise Messaging Service.
+    1. Dev Plan
+        1. Modify `"emname": "<yourmessageclientname>" ` with necessary details in the dev.json
+        2. Uncomment the respective section in mta.yaml. 
+        3. Open the srv/cat-service.js file uncomment the line no 13 (comment line 12).
+    2. Default Plan 
+        1. Modify `"emname": "<yourmessageclientname>","namespace": "<yourorgname>/<yourmessageclientname>/<uniqueID>"` with necessary details in the “default.json” file. 
+        2. Uncomment the respective section in mta.yaml. 
+        3. Open the srv/cat-service.js file uncomment the line no 12 (comment line 13).
 
-1. [Clone](https://help.github.com/articles/cloning-a-repository/) this repository
-2. Edit mta.yaml file. 
-   set the systemName as the name of the SF system that you registered in previous step.
-2. Build the application
-    `mbt build -p = cf `  
+### Step 3: Deploy the reference application
+>Note: Please set the npm registry for @sap libraries using the command :  
+`npm set @sap:registry=https://npm.sap.com`
+1. Build the application
+    `mbt build -p=cf `  
 3. Login to Cloud Foundry by typing the below commands on command prompt
     ```
     cf api <api>
     cf login -u <username> -p <password> 
     ```
     `api` - [URL of the Cloud Foundry landscape](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/350356d1dc314d3199dca15bd2ab9b0e.html) that you are trying to connect to.
-    
-    `username` - Email address of your sap.com account.
-    `password` - Your sap.com password
     
     Select the org and space when prompted to. For more information on the same refer [link](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/75125ef1e60e490e91eb58fe48c0f9e7.html#loio4ef907afb1254e8286882a2bdef0edf4).
 
@@ -70,14 +81,14 @@ In Step 3 of the document, while creating Extension Fatory service instance, pro
    `cf deploy cloud-cap-xf-sf_0.0.1.mtar`
 
 
-### Step 3: Setting up SuccessFactors system
+### Step 4: Setting up SuccessFactors system
 
 In this step, you will configure the successFactors system to send message to the Enterprise Messaging service on Cloud platform. 
 
 1. Login to the sf demo instance. 
  
     username: sfadmin
-	password: It will be provided to you in the mail that you receive on requesting for demo instance. 
+	password: `<It will be provided to you in the mail that you receive on requesting for demo instance. >`
 	
 2. Setting Outbound OAuth Configurations. In this step, the credentials required to send messages to the Enterprise Messaging service are set. 
    
@@ -93,23 +104,21 @@ In this step, you will configure the successFactors system to send message to th
   
       `Client ID`, `Client Secret`, `Token URL`: you can get these details from the service key of the enterprise message service instance you created in Step 1. 
   
-      Token URL: append the token url with `/oauth/token`
-  
       Add Custom Header Parameters. 
  
       Add new row: key=x-qos. Value =1 
       
-3. Creating integration. An integration specifies the endpoint to which a message sgould be send along with the content of the message.
+3. Creating integration. An integration specifies the endpoint to which a message should be send along with the content of the message.
    1. Navigate to integration center. 
-   2. Select `My integrations`
-   3. Select `create` > `More integration types`
-   4. Select the below details and click on create:
+   2. Select `My Integrations`
+   3. Select `Create` > `More Integration Types`
+   4. Select the below options and click on Create:
 
-      Trigger type: intelligent service
+      Trigger type: Intelligent service
  
       Destination type: REST
  
-      Format: json
+      Format: JSON
   
    ![Integration type](./documentation/images/integration.PNG)
 
@@ -118,15 +127,17 @@ In this step, you will configure the successFactors system to send message to th
 5. Provide details for the integration. 
    1. Enter name for the integration and click next
    2. In Configure Fields tab, Click `+` button . Insert sibling elements
-   3. Give label as 'userid'
-   4. Click on `set an Assosiated field` button. Select entity tree view. Select `User ID`. Click on 'Change Association to user id'
-   5. Similarly add new sibling for managerId. and associate it with supervisor id. 
-   6. Add new sibling element `message` with default value as 'resigned'
-   7. Keep the default settings for `Response field`, `filter` tabs. 
+   3. Select the created element and set label as 'userid'
+   4. Click on `Set as Assosiated field` button. Select entity tree view. Select `User ID`. Click on 'Change Association to User Id'
+   ![Set as Association field](./documentation/images/SetAsAssociation.png)
+   5. Similarly add new sibling for `managerId` and associate it with Supervisor id. 
+   6. Add new sibling element `message` with default value as 'Resigned'
+   7. Keep the default settings for `Response field`, `Filter` tabs. 
    8. Edit the `Destination Settings` with the following details:
       
       REST API URL: give the URL of the queue
-      `https://enterprise-messaging-pubsub.cfapps.eu10.hana.ondemand.com/messagingrest/v1/topics/< topic name >/messages`
+      `https://enterprise-messaging-pubsub.cfapps.eu10.hana.ondemand.com/messagingrest/v1/topics/<topicName>/messages`
+      > By default topic name for this application is `sfemessage` 
  
       Authentication type: OAuth
  
@@ -139,13 +150,13 @@ In this step, you will configure the successFactors system to send message to th
    10. In `Review and Run` tab - click on `run now`
  
  6. Configuring the event flow. This step ensures that when the event is triggered, the integration created in the above step is run. 
-   1. Search for `intelligent service` in the demo instance search bar. 
-   2. Select `Employment termination` event. There are many more events available, in our scenario, 
+   1. Search for `Intelligent Service` in the demo instance search bar. 
+   2. Select `Employment Termination` event. There are many more events available, in our scenario, 
    3. Add integration for the existing flow: 
-      - click on `Integration` under `Activities`. (on the right-hand side corner)
+      - Click on `Integration` under `Activities`. (on the right-hand side corner)
       - Select the integration created in the previous step. click on `Add integration`
  
-### Step 4: Setup your own IAS tenant for authentication [Optional]
+### Step 5: Setup your own IAS tenant for authentication [Optional]
 
 1. Request [IAS tenant ID](https://tenants.ias.only.sap/)
 2. Follow [SAP CF subaccount trust configuration](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/7c6aa87459764b179aeccadccd4f91f3.html#loioaedb8eed952b41c4b87c50b92bf651e4)
@@ -161,31 +172,35 @@ In this step, you will configure the successFactors system to send message to th
 ![step1](./documentation/images/step1.PNG)
 2. Search for Employee David Leal (dleal) in the Employee Directory
 3. Select Employee David Leal
+> You can choose any employee who is a Manager. 
 4. Click on Actions button and Select Org Chart
 ![step4](./documentation/images/step4.PNG)
-5. Choose an employee who is a direct report of 'David Leal e.g Penelope Miller(pmiller)
+5. Choose an employee who is reporting to 'David Leal e.g Penelope Miller(pmiller)
 6. Click on Take Actions button and Select Termination
 ![step6](./documentation/images/step6.PNG)
 7. Set values for 
-      - Termination Date
+      - Termination Date (Recommended to use a future date. For example, a date one week from the current date) 
       - Termination Reason - Early Retirement
       - Ok to Rehire - Yes
       - Regret Termination - Yes
 ![step7](./documentation/images/step7.PNG)
 8. Click on Save.
-9. In the please confirm your request. Click on the 'Show workflow participants' link. 
-10. Workflow participants would be shown as Paul Atkins (Production Director), Tessa Walker (HR Business Partner Global)
+9. In the window `Please confirm your request`, click on the 'Show workflow participants'. 
+10. Workflow participants would be shown as 1. Paul Atkins (Production Director); 2. Tessa Walker (HR Business Partner Global), Christine Dolan (Chief Human Resources Officer)
+> This means that Paul Atkins and Tessa Walker (or Christine Dolan) must approve this request to proceed. 
 11. Click on Confirm button
-12. Use Proxy Now functionality and proxy login as Paul Atkins(patkins)
+12. Use Proxy Now functionality and Select Target User as Paul Atkins(patkins)
 ![step12](./documentation/images/step12.PNG)
 13. In the Home page of Paul Atkins click on tile Approve Requests
 14. Click on Approve button for the request for approval of Early Retirement of Penelope Miller
 ![step14](./documentation/images/step14.PNG)
-15. Use Proxy Now functonality and proxy login as Tessa Walker(twalker)
+15. Use Proxy Now functonality and Select Target User as Tessa Walker(twalker)
 16. In the Home page of Tessa Walker click on tile Approve Requests
 17. Click on Approve button for the request for approval of Early Retirement of Penelope Miller
 18. Open the Web Application UI for Run Smooth application in browser. 
-19. Login with email address of David Leal(david.leal@bestrunsap.com). 
+> In the Step 4 of Configure trust between SF and CP using Extension Factory (see above) you would have already configured Single-Sign On between SAP Cloud Platform Subaccount and SAP SuccessFactors. This is the Identity Provider (IDP) to be used to login to the application. You can find all the IDPs available in the Login page as shown below:
+![ChangeIDP](./documentation/images/ChangeIDP.png)
+19. Choose the SuccessFactors IDP and Login with userId David Leal (dleal) and password (by default, it is same as sfadmin). 
 20. Click on notifications tile. 
 ![step20](./documentation/images/step20.PNG)
 21. Notification will be displayed regarding Resignation of Penelope Miller along with her Skillset. 
@@ -197,12 +212,4 @@ No known issues.
 
 ## How to Obtain Support
 
-In case you find a bug, or you need additional support, please open an [issue](https://github.wdf.sap.corp/staging-for-SAP-samples-public/cloud-sf-extension-cap-sample/issues) here in GitHub.
-
-## To-Do (upcoming changes)
-
-None
-
-## License
-
-Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved. This file is licensed under SAP Sample Code License Agreement, except as noted otherwise in the [LICENSE](/LICENSE) file.
+In case you find a bug, or you need additional support, please open an issue here in GitHub.
