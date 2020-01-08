@@ -154,7 +154,8 @@ In this step, you will configure the successFactors system to send message to th
    2. Select `Employment Termination` event. There are many more events available, in our scenario, 
    3. Add integration for the existing flow: 
       - Click on `Integration` under `Activities`. (on the right-hand side corner)
-      - Select the integration created in the previous step. click on `Add integration` and `Save` the flow.
+      - Select the integration created in the previous step. click on `Add integration`.
+      - Change the 'Timing' of the Integration to 'When the event is published' and save the flow (`Actions > Save Flow`).
 
 ## Demo Script
 
