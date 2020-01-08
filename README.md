@@ -34,7 +34,7 @@ The Run Smooth application is developed using [SAP Cloud Application programming
 * SuccessFactors test or demo instance. 
 >Note: Please do not try this application on a productive instance.
 * [Cloud Foundry Command Line Interface (CLI)](https://github.com/cloudfoundry/cli#downloads)
-* Cloud Foundry trial or enterprise account, [sign up for a Cloud Foundry environment trial account on SAP Cloud Platform](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/76e79d62fa0149d5aa7b0698c9a33687.html)
+* SAP Cloud Platform account with [Enterprise Messaging](https://help.sap.com/viewer/product/SAP_ENTERPRISE_MESSAGING/Cloud/en-US) service. The 'default' plan for Enterprise Messaging service is required.
 * To build the multi target application, we need the [Cloud MTA Build tool](https://sap.github.io/cloud-mta-build-tool/), download the tool from [here](https://sap.github.io/cloud-mta-build-tool/download/)
 * For Windows system, install 'MAKE' from https://sap.github.io/cloud-mta-build-tool/makefile/ 
 
