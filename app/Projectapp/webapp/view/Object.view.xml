@@ -1,0 +1,47 @@
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.f.semantic" xmlns:footerbar="sap.ushell.ui.footerbar" controllerName="proj.Projectapp.controller.Object">
+
+	<semantic:SemanticPage xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" id="page" headerPinnable="false" toggleHeaderOnTitleClick="false" busy="{objectView>/busy}" busyIndicatorDelay="{objectView>/delay}" cd:w5g.dt.context="/Project">
+
+		<semantic:titleHeading>
+			<Title text="{projectName}"/>
+		</semantic:titleHeading>
+
+		<semantic:headerContent>
+			<ObjectAttribute id="attribute0" text="{description}"/>
+		</semantic:headerContent>
+
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press=".onShareEmailPress"/>
+		</semantic:sendEmailAction>
+
+		<semantic:shareInJamAction>
+			<semantic:ShareInJamAction id="shareInJam" visible="{FLP>/isShareInJamActive}" press=".onShareInJamPress"/>
+		</semantic:shareInJamAction>
+
+		<semantic:saveAsTileAction>
+			<footerbar:AddBookmarkButton id="shareTile" title="{objectView>/saveAsTileTitle}"/>
+		</semantic:saveAsTileAction>
+
+	<semantic:content>
+
+	    <List noDataText="Please Assign Employees to the Project {projectName}" busy="{empprojects>/busy}" busyIndicatorDelay="{objectView>/delay}" id="list0" items="{path : 'empprojects>/value'}" headerText="Employee Details">
+
+	        <items>
+
+	            <FeedListItem icon="/odata/v2/Photo(photoType=20,userId='{empprojects>employeeId}')/$value" id="item1" text="{empprojects>employeeName}" sender="{empprojects>employeeId}"/>
+
+	        </items>
+
+	    </List>
+
+	</semantic:content>
+
+	<semantic:titleCustomTextActions>
+
+	    <Button xmlns="sap.m" text="Assign Employee" id="button6" icon="sap-icon://employee-lookup" press="assignemployee" type="Emphasized"/>
+
+	</semantic:titleCustomTextActions>
+
+	</semantic:SemanticPage>
+
+</mvc:View>

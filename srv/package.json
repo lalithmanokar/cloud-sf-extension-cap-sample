@@ -1,0 +1,56 @@
+{
+	"name": "cloud-cap-xf-sf-srv",
+	"description": "Success Factors Extension Nodejs Service",
+	"version": "1.0.0",
+	"dependencies": {
+		"@sap/cds": "^3.20.1",
+		"express": "^4.17.1",
+		"hdb": "^0.17.1",
+		"@sap/audit-logging": "^3.0.2",
+		"@sap/cds-rest": "^1.1.2",
+		"@sap/xb-msg-amqp-v100": "^0.9.19",
+		"@sap/xsenv": "^2.1.0",
+		"@sap/xssec": "^2.2.3",
+		"passport": "^0.4.0"
+	},
+	"engines": {
+		"node": "^8.9",
+		"npm": "^6"
+	},
+	"devDependencies": {},
+	"scripts": {
+		"postinstall": "npm dedupe && node .build.js",
+		"start": "node ./node_modules/@sap/cds/bin/cds.js serve gen/csn.json",
+		"watch": "nodemon -w . -i node_modules/**,.git/** -e cds -x npm run build"
+	},
+	"private": true,
+	"cds": {
+		"requires": {
+			"db": {
+				"kind": "hana",
+				"model": "gen/csn.json"
+			},
+			"successFactorsService": {
+				"kind": "odata",
+				"vcap": {
+					"label": "destination"
+				},
+				"credentials": {
+					"destination": "sfextension-service",
+					"requestTimeout": 30000000
+				},
+				"pool": {
+					"min": 1,
+					"max": 10
+				}
+			},
+			"myMessaging": {
+				"kind": "enterprise-messaging"
+			},
+			"uaa": {
+				"kind": "xsuaa",
+				"credentials": {}
+			}
+		}
+	}
+}

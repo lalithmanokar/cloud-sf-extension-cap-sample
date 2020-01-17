@@ -1,0 +1,107 @@
+<mvc:View
+	controllerName="nt.NotificationApp.controller.Worklist"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.f.semantic"
+	xmlns:footerbar="sap.ushell.ui.footerbar">
+
+	<semantic:SemanticPage
+		id="page"
+		headerPinnable="false"
+		toggleHeaderOnTitleClick="false">
+
+		<semantic:titleHeading>
+			<Title text="Success Factors Notifications" />
+		</semantic:titleHeading>
+
+		<semantic:content>
+			<Table
+				id="table"
+				width="auto"
+				items="{
+					path: '/Notifications',
+					sorter: {
+						path: 'employeeId',
+						descending: false
+					}
+				}"
+				noDataText="{worklistView>/tableNoDataText}"
+				growing="true"
+				growingScrollToLoad="true"
+				updateFinished=".onUpdateFinished">
+
+				<headerToolbar>
+					<Toolbar>
+						<Title id="tableHeader" text="{worklistView>/worklistTableTitle}"/>
+						<ToolbarSpacer />
+						<SearchField
+							id="searchField"
+							tooltip="{i18n>worklistSearchTooltip}"
+							search=".onSearch"
+							width="auto">
+						</SearchField>
+					</Toolbar>
+				</headerToolbar>
+
+				<columns>
+					<Column id="column0_1574314539677">
+					    <header>
+					        <Text text="Image" id="text5_1574314539677"/>
+					    </header>
+					</Column>
+					<Column id="nameColumn">
+						<Text text="Employee ID" id="nameColumnTitle"/>
+					</Column>
+					<Column id="column0">
+					    <header>
+					        <Text text="Employee Name" id="text5"/>
+					    </header>
+					</Column>
+					<Column id="column1">
+					    <header>
+					        <Text id="text6" text="Reason"/>
+					    </header>
+					</Column>
+					<!--<Column id="column2">-->
+					<!--    <header>-->
+					<!--        <Text text="Notification Status" id="text7"/>-->
+					<!--    </header>-->
+					<!--</Column>-->
+					<Column id="unitNumberColumn" hAlign="End">
+					<header>
+					    <Text xmlns="sap.m" text="Employee Skills" id="unitNumberColumnTitle"/>
+					</header>
+					</Column>
+				</columns>
+
+				<items>
+					<ColumnListItem press=".onPress">
+						<cells>
+							
+							<Image ariaLabelledBy="__xmlview0--text5_1574314539677" src="/odata/v2/Photo(photoType=20,userId='{employeeId}')/$value" width="3rem" height="3rem" id="image0"/>
+							<ObjectIdentifier text="{employeeId}"/>
+							<ObjectIdentifier xmlns="sap.m" titleActive="fasle" id="identifier1" title="{employeeName}"/>
+							<ObjectIdentifier xmlns="sap.m" text="{message}" titleActive="fasle" id="identifier2"/>
+							<!--<ObjectIdentifier xmlns="sap.m" text="{readStatus}" titleActive="fasle" id="identifier3"/>-->
+							<ObjectIdentifier xmlns="sap.m" text="{skills}" titleActive="fasle" id="identifier4"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</semantic:content>
+
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press=".onShareEmailPress"/>
+		</semantic:sendEmailAction>
+
+		<semantic:shareInJamAction>
+			<semantic:ShareInJamAction id="shareInJam" visible="{FLP>/isShareInJamActive}" press=".onShareInJamPress"/>
+		</semantic:shareInJamAction>
+
+		<semantic:saveAsTileAction>
+			<footerbar:AddBookmarkButton id ="shareTile" title="{worklistView>/saveAsTileTitle}" />
+		</semantic:saveAsTileAction>
+
+	</semantic:SemanticPage>
+
+</mvc:View>

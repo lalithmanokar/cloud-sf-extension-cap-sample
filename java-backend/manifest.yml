@@ -1,8 +1,0 @@
----
-applications:
-- name: runSmooth-webSocket
-  memory: 1024M
-  path: target/java-backend-1.0.0.jar
-  services:
-    - sf-db
-    - xsuaa

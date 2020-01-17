@@ -1,9 +1,0 @@
----
-applications:
-- name: em-consumer
-  memory: 1G
-  path: target/webhook-worker-1.0.0.jar
-  services:
-    - sf-db
-  env:
-    ALLOWED_REQUEST_ORIGINS: enterprise-messaging-pubsub.cfapps.sap.hana.ondemand.com, enterprise-messaging-pubsub.cfapps.eu10.sap.hana.ondemand.com
