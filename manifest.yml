@@ -1,0 +1,37 @@
+---
+applications:
+- name: approuter-sf
+  host: approuter-sf-ext
+  buildpack: nodejs_buildpack
+  memory: 128M
+  path: approuter
+  env:
+    SAP_JWT_TRUST_ACL: "[{\"clientid\":\"*\",\"identityzone\":\"*\"}]"
+    XS_APP_LOG_LEVEL: debug
+    TENANT_HOST_PATTERN: "^(.*).cfapps.eu10.hana.ondemand.com"
+#    XSAPPNAME: xsuaa-demo
+    destinations: >
+      [
+        {"name": "extensionapp", "url":"https://runSmooth-i069074.cfapps.eu10.hana.ondemand.com", "forwardAuthToken": true}
+      ]
+  services:
+    - xsuaa
+    - destination-demo-lite
+
+- name: runSmooth
+  host: runSmooth-i069074
+  memory: 1024M
+  path: java-backend/target/java-backend-1.0.0.jar
+  buildpack: java_buildpack
+  services:
+    - sf-db
+    - xsuaa
+
+- name: em-consumer
+  memory: 1G
+  path: webhook-worker/target/webhook-worker-1.0.0.jar
+  buildpack: java_buildpack
+  services:
+    - sf-db
+  env:
+    ALLOWED_REQUEST_ORIGINS: enterprise-messaging-pubsub.cfapps.sap.hana.ondemand.com, enterprise-messaging-pubsub.cfapps.eu10.sap.hana.ondemand.com

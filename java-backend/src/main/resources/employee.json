@@ -1,0 +1,28 @@
+[  
+   {  
+      "employeeId":"1234",
+      "employeeName":"Joe",
+      "managerId":"--MNGR--",
+      "managerName":"Joe"
+   },{  
+      "employeeId":"2345",
+      "employeeName":"Ron",
+      "managerId":"1234",
+      "managerName":"Joe"
+   },{  
+      "employeeId":"2346",
+      "employeeName":"John",
+      "managerId":"1234",
+      "managerName":"Joe"
+   },{  
+      "employeeId":"2347",
+      "employeeName":"Jack",
+      "managerId":"1234",
+      "managerName":"Joe"
+   },{  
+      "employeeId":"2348",
+      "employeeName":"Mike",
+      "managerId":"1234",
+      "managerName":"Joe"
+   }
+]

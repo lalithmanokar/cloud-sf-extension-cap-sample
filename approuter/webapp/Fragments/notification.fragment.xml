@@ -1,0 +1,73 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Popover
+		showHeader="false"
+		contentWidth="320px"
+		contentHeight="500px"
+		placement="Bottom" >
+		<NavContainer
+			id="navCon">
+			<Page
+				id="master"
+				title="Notifications">
+				<List
+					id="list"
+					items="{notifications>/}" >
+					<StandardListItem
+						title="{notifications>message}"
+						icon="/odata/v2/Photo(photoType=20,userId='{notifications>employeeId}')/$value"
+						description="Employee ID: {notifications>employeeId}"
+						type="Active"
+						press="onNavToSummary"
+						iconDensityAware="false"
+						iconInset="false" />
+				</List>
+			</Page>
+			<Page
+				id="detail"
+				showNavButton="true"
+				navButtonPress="onNavBackPopup"
+				title="Summary">
+
+				<ObjectHeader
+					title="{notifications>message}"
+					icon="/odata/v2/Photo(photoType=20,userId='{notifications>employeeId}')/$value" >
+
+
+
+					<attributes>
+						<ObjectAttribute text="Employee: {notifications>employeeId}" />
+						<ObjectAttribute text="Employee Name: {empProfile>/employeeName}" />
+
+						<ObjectAttribute text="Manager: {notifications>managerId}" />
+						
+					</attributes>
+				</ObjectHeader>
+
+				<List
+					id="projectsEmp"
+					headerText="Projects"
+					items="{empProfile>/projects}" >
+					<StandardListItem
+						title="{empProfile>projectName}"
+						type="Active"
+						iconDensityAware="false"
+						iconInset="false" />
+				</List>
+
+
+				<List
+					id="skillsEmp"
+					headerText="Skills"
+					items="{notifyEmpSkills>/d/ratedSkills/results}" >
+					<StandardListItem
+						title="{notifyEmpSkills>skillNav/name_en_US}"
+						type="Active"
+						iconDensityAware="false"
+						iconInset="false" />
+				</List>
+			</Page>
+		</NavContainer>
+	</Popover>
+</core:FragmentDefinition>

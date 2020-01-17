@@ -1,0 +1,20 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		noDataText="No Projects Found"
+		title="Select Project"
+		search="handleSearch"
+		confirm="handleDialogClose"
+		cancel="handleDialogClose"
+		items="{
+			path: 'allprojects>/'
+		}" >
+		<StandardListItem
+			title="{allprojects>projectName}"
+			description="{allprojects>ProjectId}"
+			iconDensityAware="false"
+			iconInset="false"
+			type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>

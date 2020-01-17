@@ -1,0 +1,27 @@
+{
+    "xsappname": "approuter-sf",
+    "tenant-mode":"dedicated",
+    "scopes": [
+    
+    {
+      "name": "uaa.user",
+      "description": "uaa.user"
+    },
+    {
+      "name": "$XSAPPNAME.Create",
+      "description": "create"
+    }
+  ],
+
+    "role-templates": [
+    {
+      "name": "Manager",
+      "description": "SF Manager",
+      "scope-references": [
+        "$XSAPPNAME.Create",
+        "uaa.user"
+      ]
+    }
+  ]
+
+}

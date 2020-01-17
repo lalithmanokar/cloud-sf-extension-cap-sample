@@ -1,0 +1,20 @@
+---
+applications:
+
+- name: approuter-sf
+  host: approuter-sf-ext
+  buildpack: nodejs_buildpack
+  memory: 128M
+  path: approuter
+  env:
+    SAP_JWT_TRUST_ACL: "[{\"clientid\":\"*\",\"identityzone\":\"*\"}]"
+    XS_APP_LOG_LEVEL: debug
+    TENANT_HOST_PATTERN: "^(.*).cfapps.eu10.hana.ondemand.com"
+#    XSAPPNAME: xsuaa-demo
+    destinations: >
+      [
+        {"name": "extensionapp", "url":"https://runSmooth-i069074.cfapps.eu10.hana.ondemand.com", "forwardAuthToken": true}
+      ]
+  services:
+    - xsuaa
+    - destination-demo
