@@ -204,3 +204,8 @@ No known issues.
 ## How to Obtain Support
 
 In case you find a bug, or you need additional support, please open an issue here in GitHub.
+
+## License
+
+Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+This project is licensed under the SAP Sample Code License Agreement except as noted otherwise in the [LICENSE](/LICENSE) file.
