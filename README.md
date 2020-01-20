@@ -48,7 +48,7 @@ The Run Smooth application is developed using [SAP Cloud Application programming
 ### Step 2: Project Configuration
 1. [Clone](https://help.github.com/articles/cloning-a-repository/) this [repository](../..)
 2. Open [mta.yaml](mta.yaml)
-3. Go to the section `Success Factors Extensibility Service` and modify the SuccessFactors System name as per the name given while registering the System in previous Step. Also, check if the Extension Factory service instance name matches in the `mta.yaml`.
+3. Go to the section `Success Factors Extensibility Service` and modify the SuccessFactors System name as per the name given while registering the System in the previous Step. 
 3. Go to the section `Enterprise Messaging Service`
 4. Check in your CF account which service plan is available for Enterprise Messaging Service.
     1. Dev Plan
@@ -102,7 +102,7 @@ In this step, you will configure the successFactors system to send message to th
   
       Grant Type: `Client_Credentials`
   
-      `Client ID`, `Client Secret`, `Token URL`: you can get these details from the service key of the enterprise message service instance you created in Step 1. 
+      `Client ID`, `Client Secret`, `Token URL`: you can get these details from the service key of the enterprise message service instance you created in Step 1. If there is no existing service key, please create it from the Cloud Platform cockpit. 
   
       Add Custom Header Parameters. 
  
@@ -127,12 +127,12 @@ In this step, you will configure the successFactors system to send message to th
 5. Provide details for the integration. 
    1. Enter name for the integration and click next
    2. In Configure Fields tab, Click `+` button . Insert sibling elements
-   3. Select the created element and set label as 'userid'
-   4. Click on `Set as Assosiated field` button. Select entity tree view. Select `User ID`. Click on 'Change Association to User Id'
+   3. Select the created element and set label as 'employeeId'
+   4. Click on `Set as Assosiated field` button. Select entity tree view. Select `User ID`. Click on 'Change Association to User Id'.
    ![Set as Association field](./documentation/images/SetAsAssociation.png)
    5. Similarly add new sibling for `managerId` and associate it with Supervisor id. 
-   6. Add new sibling element `message` with default value as 'Resigned'
-   7. Keep the default settings for `Response field`, `Filter` tabs. 
+   6. Add new sibling element `message` with default value as 'Resigned'. Click Next
+   7. Keep the default settings for `Response field`, `Filter` tabs. Click Next
    8. Edit the `Destination Settings` with the following details:
       
       REST API URL: give the URL of the queue
@@ -145,12 +145,12 @@ In this step, you will configure the successFactors system to send message to th
  
       ![Destination settings](./documentation/images/DestinationSettings.PNG)
   
-   9. Click on `save`
+   9. Click on `Save`
  
-   10. In `Review and Run` tab - click on `run now`
+   10. In `Review and Run` tab - click on `Run now`
  
  6. Configuring the event flow. This step ensures that when the event is triggered, the integration created in the above step is run. 
-   1. Search for `Intelligent Service` in the demo instance search bar. 
+   1. Search for `Intelligent Service Center` in the demo instance search bar and Open it. 
    2. Select `Employment Termination` event. There are many more events available, in our scenario, 
    3. Add integration for the existing flow: 
       - Click on `Integration` under `Activities`. (on the right-hand side corner)
