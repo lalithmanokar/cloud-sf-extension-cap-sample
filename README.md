@@ -88,7 +88,8 @@ In this step, you will configure the successFactors system to send message to th
 1. Login to the sf demo instance. 
  
     username: sfadmin
-	password: `<It will be provided to you in the mail that you receive on requesting for demo instance. >`
+    
+    password: `<It will be provided to you in the mail that you receive on requesting for demo instance.>`
 	
 2. Setting Outbound OAuth Configurations. In this step, the credentials required to send messages to the Enterprise Messaging service are set. 
    
