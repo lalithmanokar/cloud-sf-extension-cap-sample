@@ -3,11 +3,11 @@
 	"description": "Success Factors Extension Nodejs Service",
 	"version": "1.0.0",
 	"dependencies": {
-		"@sap/cds": "^3.20.1",
+		"@sap/cds": "3.17.4",
 		"express": "^4.17.1",
 		"hdb": "^0.17.1",
 		"@sap/audit-logging": "^3.0.2",
-		"@sap/cds-rest": "^1.1.2",
+		"@sap/cds-rest": "1.3.0",
 		"@sap/xb-msg-amqp-v100": "^0.9.19",
 		"@sap/xsenv": "^2.1.0",
 		"@sap/xssec": "^2.2.3",

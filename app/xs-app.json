@@ -25,8 +25,7 @@
 		"destination": "srv_api",
 		"csrfProtection": false
 	}, {
-		"source": "^/(.*)$",
-		"target": "$1",
+		"source": "^/odata/v2/(.*)$",
 		"destination": "sfextension-service"
 	}]
 }

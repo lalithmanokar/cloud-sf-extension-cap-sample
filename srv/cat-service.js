@@ -8,7 +8,7 @@ module.exports = async srv => {
 
 	/* enterprise messaging Queue Name is sfemessage,
 	    errors are logged automatically
-	    If you are Using Enterprise Messaging Service Plan Default Replace the Line Number 11 with Below code
+	    If you are Using Enterprise Messaging Service Plan Default Replace the Line Number 13 with line number 12
 	    myMessaging.on('sfemessage', msg => { */
 	myMessaging.on('topic:sfemessage', msg => {
 		const {
@@ -75,6 +75,7 @@ module.exports = async srv => {
 				const data = await tx.get(`/odata/v2/User('${empId}')`)
 				each.employeeName = data.defaultFullName
 			} catch (e) {
+                console.log(e)
 				each.employeeName = 'Unknown'
 			}
 		}

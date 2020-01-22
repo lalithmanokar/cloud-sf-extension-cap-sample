@@ -17,7 +17,7 @@ Managers can maintain the details of their direct reports and the projects that 
 When an employee decides to leave the team/ company, an event is triggered in the SuccessFactors system. The Run Smooth application subscribes to this event and sends out a notification to the manager with the topics to be handed over to fellow team mates and the preferred skill set for the replacement hire to maintain the status quo in the team. 
 
 #### Features:
-* Login with SuccessFactors UserId, password. 
+* Login with SuccessFactors userId, password. 
 * View the list of projects, employees working on the projects. 
 * Get notification when an employee is leaving the team with the consolidated report on the skills of the employee.
 
@@ -37,18 +37,24 @@ The Run Smooth application is developed using [SAP Cloud Application programming
 * SAP Cloud Platform account with [Enterprise Messaging](https://help.sap.com/viewer/product/SAP_ENTERPRISE_MESSAGING/Cloud/en-US) service. The 'default' plan for Enterprise Messaging service is required.
 * To build the multi target application, we need the [Cloud MTA Build tool](https://sap.github.io/cloud-mta-build-tool/), download the tool from [here](https://sap.github.io/cloud-mta-build-tool/download/)
 * For Windows system, install 'MAKE' from https://sap.github.io/cloud-mta-build-tool/makefile/ 
+>Note: Please set the npm registry for @sap libraries using the command :  
+`npm set @sap:registry=https://npm.sap.com`
+* Install the following:
+	1. grunt 	- `npm install -g grunt-cli`
+	2. cds	 	- `npm install -g @sap/cds`
+	3. multiapps plugin - `cf install-plugin multiapps`
 
 ## Configuration
 
 ### Step 1: Configure trust between SF and CP using Extension Factory
  
- Follow steps 1, 2 and 4 from in this [document](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/9e33934540c44681817567d6072effb2.html) to set up trust and destination to access SuccessFactors system using Extension Factory.
+ Follow steps 1, 2 and 4 from this [document](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/9e33934540c44681817567d6072effb2.html) to set up trust and destination to access SuccessFactors system using Extension Factory.
 > Ignore step 3 in the document. 
 
 ### Step 2: Project Configuration
 1. [Clone](https://help.github.com/articles/cloning-a-repository/) this [repository](../..)
 2. Open [mta.yaml](mta.yaml)
-3. Go to the section `Success Factors Extensibility Service` and modify the SuccessFactors System name as per the name given while registering the System in the previous Step. 
+3. Go to the section `Success Factors Extensibility Service` and modify the SuccessFactors System name as per the name given while registering the System in previous step. 
 3. Go to the section `Enterprise Messaging Service`
 4. Check in your CF account which service plan is available for Enterprise Messaging Service.
     1. Dev Plan
@@ -57,12 +63,12 @@ The Run Smooth application is developed using [SAP Cloud Application programming
         3. Open the srv/cat-service.js file uncomment the line no 13 (comment line 12).
     2. Default Plan 
         1. Modify `"emname": "<yourmessageclientname>","namespace": "<yourorgname>/<yourmessageclientname>/<uniqueID>"` with necessary details in the “default.json” file. 
+	The `<yourmessageclientname>` and `<uniqueID>` can be any random unique identifier. Please make sure that `namespace` does not exceed 24 characters.
         2. Uncomment the respective section in mta.yaml. 
         3. Open the srv/cat-service.js file uncomment the line no 12 (comment line 13).
 
 ### Step 3: Deploy the reference application
->Note: Please set the npm registry for @sap libraries using the command :  
-`npm set @sap:registry=https://npm.sap.com`
+
 1. Build the application
     `mbt build -p=cf `  
 3. Login to Cloud Foundry by typing the below commands on command prompt
@@ -88,28 +94,27 @@ In this step, you will configure the successFactors system to send message to th
 1. Login to the sf demo instance. 
  
     username: sfadmin
-    
-    password: `<It will be provided to you in the mail that you receive on requesting for demo instance.>`
+    password: `<It will be provided to you in the mail that you receive on requesting for demo instance. >`
 	
 2. Setting Outbound OAuth Configurations. In this step, the credentials required to send messages to the Enterprise Messaging service are set. 
    
    1. In the demo instance search bar, search for `Integration center`
    2. Select `Security center`
    3. Select `Outbound OAuth Configurations`
-   4. Click on `add` to create new OAuth configuration
+   4. Click on `Add` to create new OAuth configuration
    5. Enter the below detail:
   
       OAuth Type: `OAuth 2.0`
   
       Grant Type: `Client_Credentials`
   
-      `Client ID`, `Client Secret`, `Token URL`: you can get these details from the service key of the enterprise message service instance you created in Step 1. If there is no existing service key, please create it from the Cloud Platform cockpit. 
+      `Client ID`, `Client Secret`, `Token URL`: you can get these details from the service key of the enterprise message service instance you created in Step 1. If there is no existing service key, please create it in the Cloud Platform cockpit.
   
       Add Custom Header Parameters. 
  
       Add new row: key=x-qos. Value =1 
       
-3. [Creating integration](https://help.sap.com/viewer/60ba370328e0485797adde67aee846a0/1911/en-US/755f11067c084481b578dfe7cadb89a9.html). An integration specifies the endpoint to which a message should be send along with the content of the message.
+3. Creating integration. An integration specifies the endpoint to which a message should be send along with the content of the message.
    1. Navigate to integration center. 
    2. Select `My Integrations`
    3. Select `Create` > `More Integration Types`
@@ -129,7 +134,7 @@ In this step, you will configure the successFactors system to send message to th
    1. Enter name for the integration and click next
    2. In Configure Fields tab, Click `+` button . Insert sibling elements
    3. Select the created element and set label as 'employeeId'
-   4. Click on `Set as Assosiated field` button. Select entity tree view. Select `User ID`. Click on 'Change Association to User Id'.
+   4. Click on `Set as Assosiated field` button. Select entity tree view. Select `User ID`. Click on 'Change Association to User Id'
    ![Set as Association field](./documentation/images/SetAsAssociation.png)
    5. Similarly add new sibling for `managerId` and associate it with Supervisor id. 
    6. Add new sibling element `message` with default value as 'Resigned'. Click Next
@@ -151,12 +156,13 @@ In this step, you will configure the successFactors system to send message to th
    10. In `Review and Run` tab - click on `Run now`
  
  6. Configuring the event flow. This step ensures that when the event is triggered, the integration created in the above step is run. 
-   1. Search for `Intelligent Service Center` in the demo instance search bar and Open it. 
+   1. Search for `Intelligent Service Center` in the demo instance search bar and Open it.
    2. Select `Employment Termination` event. There are many more events available, in our scenario, 
    3. Add integration for the existing flow: 
       - Click on `Integration` under `Activities`. (on the right-hand side corner)
-      - Select the integration created in the previous step. click on `Add integration`.
+      - Select the Integration created in the previous step. Click on `Add integration`.
       - Change the 'Timing' of the Integration to 'When the event is published' and save the flow (`Actions > Save Flow`).
+ 
 
 ## Demo Script
 

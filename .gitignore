@@ -1,0 +1,22 @@
+package-lock.json
+_out
+.cds_gen.log
+*.db
+gen
+connection.properties
+node_modules/
+package-lock.json
+target/
+.che/
+.gen/
+srv/gen/
+# MTA
+*_mta_build_tmp
+*.mtar
+mta_archives/
+dist/
+edmx/
+gen/
+mta_archives/
+node_modules/
+target/
