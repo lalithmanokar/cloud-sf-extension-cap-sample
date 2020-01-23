@@ -6,11 +6,9 @@ module.exports = async srv => {
 		Notifications
 	} = srv.entities
 
-	/* enterprise messaging Queue Name is sfemessage,
-	    errors are logged automatically
-	    If you are Using Enterprise Messaging Service Plan Default Replace the Line Number 13 with line number 12
-	    myMessaging.on('sfemessage', msg => { */
-	myMessaging.on('topic:sfemessage', msg => {
+	/* enterprise messaging Topic Name is sfemessage,
+	    errors are logged automatically */
+	myMessaging.on('sfemessage', msg => { 
 		const {
 			message,
 			employeeId,
