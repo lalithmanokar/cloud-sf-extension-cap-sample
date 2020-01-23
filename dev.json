@@ -1,8 +1,0 @@
-{
-    "emname": "<yourmessageclientname>",
-    "options": {
-        "management": true,
-        "messagingrest": true,
-        "messaging": true
-    }
-}
