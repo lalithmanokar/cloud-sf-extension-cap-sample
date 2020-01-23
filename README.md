@@ -56,17 +56,10 @@ The Run Smooth application is developed using [SAP Cloud Application programming
 2. Open [mta.yaml](mta.yaml)
 3. Go to the section `Success Factors Extensibility Service` and modify the SuccessFactors System name as per the name given while registering the System in previous step. 
 3. Go to the section `Enterprise Messaging Service`
-4. Check in your CF account which service plan is available for Enterprise Messaging Service.
-    1. Dev Plan
-        1. Modify `"emname": "<yourmessageclientname>" ` with necessary details in the dev.json
-        2. Uncomment the respective section in mta.yaml. 
-        3. Open the srv/cat-service.js file uncomment the line no 13 (comment line 12).
-    2. Default Plan 
-        1. Modify `"emname": "<yourmessageclientname>","namespace": "<yourorgname>/<yourmessageclientname>/<uniqueID>"` with necessary details in the “default.json” file. 
-	The `<yourmessageclientname>` and `<uniqueID>` can be any random unique identifier. Please make sure that `namespace` does not exceed 24 characters.
-        2. Uncomment the respective section in mta.yaml. 
-        3. Open the srv/cat-service.js file uncomment the line no 12 (comment line 13).
-
+4. Check in your CF account that "default" service plan is available for Enterprise Messaging Service. 
+5. Modify `"emname": "<yourmessageclientname>","namespace": "<yourorgname>/<yourmessageclientname>/<uniqueID>"` with necessary details in the “em.json” file. 
+> The `<yourmessageclientname>` and `<uniqueID>` can be any random unique identifier. Please make sure that `namespace` does not exceed 24 characters.
+       
 ### Step 3: Deploy the reference application
 
 1. Build the application
