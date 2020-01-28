@@ -58,7 +58,7 @@ The Run Smooth application is developed using [SAP Cloud Application programming
 3. Go to the section `Enterprise Messaging Service`
 4. Check in your CF account that "default" service plan is available for Enterprise Messaging Service. 
 5. Modify `"emname": "<yourmessageclientname>","namespace": "<yourorgname>/<yourmessageclientname>/<uniqueID>"` with necessary details in the “em.json” file. 
-> The `<yourmessageclientname>` and `<uniqueID>` can be any random unique identifier. Please make sure that `namespace` does not exceed 24 characters.
+> The `<yourmessageclientname>` and `<uniqueID>` can be any random unique identifier. `<yourorgname>` would be your org name without '-' or any special character.  Please make sure that namespace does not exceed 24 characters. For more details regarding syntax, size and characters allowed in namespace are mentioned [here](https://help.sap.com/viewer/bf82e6b26456494cbdd197057c09979f/Cloud/en-US/5696828fd5724aa5b26412db09163530.html?q=namespace) 
        
 ### Step 3: Deploy the reference application
 
