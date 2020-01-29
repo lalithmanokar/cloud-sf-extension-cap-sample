@@ -1,24 +1,25 @@
-# SucessFactors Extension Application - "Run Smooth"
+# SAP SucessFactors Extension Application - "Run Smooth"
 
 ## Description: 
-`Run Smooth` is a reference application that shows how to extend SuccessFactors employee central with an application that runs on SAP Cloud Platform. 
+`Run Smooth` is a reference application which showcases how to build an event driven extensions for SAP Successfactors using the capabilities provided by [SAP Cloud Platform Extension Factory](https://help.sap.com/viewer/7b98ddc13f8d4a3ba08a74042a0baa7f/Cloud/en-US). This solution is developed by extending the Employee Central module of SAP Successfactors to build an event driven application.
 
 This application showcases:
-1. Using SAP Cloud Platform Extension Factory service
-2. Cloud Application Programming Model(CAP) to build application
-3. Handling of SF events via Enterprise Messaging
-4. Connectivity with SF REST API’s
+1. Capabilities of SAP Cloud Platform Extension Factory
+2. Building of application on f SAP Cloud Platform using SAP Cloud Application Programming Model(CAP)
+3. Building and Event driven extension application using SAP CP Enterprise Messaging
+4. Consuming REST API’s from SAP Successfactors uising SAP CP Connectivity Service
 5. SCI(IAS) Tenant integration with SF
 
 
-#### Scenario: 
+## Business Scenario: 
 
-Managers can maintain the details of their direct reports and the projects that they are working on in `Run Smooth` application. 
-When an employee decides to leave the team/ company, an event is triggered in the SuccessFactors system. The Run Smooth application subscribes to this event and sends out a notification to the manager with the topics to be handed over to fellow team mates and the preferred skill set for the replacement hire to maintain the status quo in the team. 
+In this reference application called as Run Smooth a business scenario is used to showcase the technology components.
+A Manager maintains in the Run Smooth application the staffing details of all the projects to which the employees reporting to him are contributing to.  He can create project and assign employees to the projects. An employee contributing to a project might decide to leave the team/ company. When this occurs the manager get a notification with the projects the employee is working upon and the skills the employee has. This information can be used by manager to find/hire a replacement for employee who decides to leave and assign the projects. 
 
 #### Features:
-* Login with SuccessFactors userId, password. 
-* View the list of projects, employees working on the projects. 
+* Create Projects
+* Assign Employees
+* View the list of projects, employees working on the projects.
 * Get notification when an employee is leaving the team with the consolidated report on the skills of the employee.
 
 ## Architecture
@@ -27,12 +28,12 @@ When an employee decides to leave the team/ company, an event is triggered in th
 
 ![solution diagram](./documentation/images/SolutionDiagram.PNG)
 
-The Run Smooth application is developed using [SAP Cloud Application programming Model (CAP)](https://cap.cloud.sap/docs/) and runs on Cloud Foundry Environment. It consumes platform services like Enterprise Messaging, HANA and Connectivity. The events generated in SuccessFactors are inserted into the Enterprise messaging queue. The application running in Cloud Foundry polls the queue for these messages and inserts them into the HANA database. The run smooth application also makes calls to SF oData APIs to get SF data. 
+The Run Smooth application is developed using [SAP Cloud Application programming Model (CAP)](https://cap.cloud.sap/docs/) and runs and runs on the SAP Cloud Platform Cloud Foundry Environment. It consumes platform services like Enterprise Messaging, SAP HANA and Connectivity. The events generated in SuccessFactors are inserted into the Enterprise messaging queue. The application running in Cloud Foundry polls the queue for these messages and inserts them into the HANA database. The run smooth application also makes calls to SF oData APIs to get SF data.
 
 ## Requirements 
 * [Node js](https://nodejs.org/en/download/)
 * SuccessFactors test or demo instance. 
->Note: Please do not try this application on a productive instance.
+>Note: Please do not try running this application against  a Successfactors productive instance as it involves triggering a Termination Event from Successfactors.
 * [Cloud Foundry Command Line Interface (CLI)](https://github.com/cloudfoundry/cli#downloads)
 * SAP Cloud Platform account with [Enterprise Messaging](https://help.sap.com/viewer/product/SAP_ENTERPRISE_MESSAGING/Cloud/en-US) service. The 'default' plan for Enterprise Messaging service is required.
 * To build the multi target application, we need the [Cloud MTA Build tool](https://sap.github.io/cloud-mta-build-tool/), download the tool from [here](https://sap.github.io/cloud-mta-build-tool/download/)
@@ -46,10 +47,10 @@ The Run Smooth application is developed using [SAP Cloud Application programming
 
 ## Configuration
 
-### Step 1: Configure trust between SF and CP using Extension Factory
+### Step 1: Configure trust between SF and SAP CP using Extension Factory
  
  Follow steps 1, 2 and 4 from this [document](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/9e33934540c44681817567d6072effb2.html) to set up trust and destination to access SuccessFactors system using Extension Factory.
-> Ignore step 3 in the document. 
+> Ignore step 3 in the document as the service instance creation is automatically done when the application is deployed as a MTA. 
 
 ### Step 2: Project Configuration
 1. [Clone](https://help.github.com/articles/cloning-a-repository/) this [repository](../..)
