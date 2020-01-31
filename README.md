@@ -58,8 +58,33 @@ The Run Smooth application is developed using [SAP Cloud Application programming
 3. Go to the section `Enterprise Messaging Service`
 4. Check in your CF account that "default" service plan is available for Enterprise Messaging Service. 
 5. Modify `"emname": "<yourmessageclientname>","namespace": "<yourorgname>/<yourmessageclientname>/<uniqueID>"` with necessary details in the “em.json” file. 
-> The `<yourmessageclientname>` and `<uniqueID>` can be any random unique identifier. `<yourorgname>` would be your org name without '-' or any special character.  Please make sure that namespace does not exceed 24 characters. For more details regarding syntax, size and characters allowed in namespace are mentioned [here](https://help.sap.com/viewer/bf82e6b26456494cbdd197057c09979f/Cloud/en-US/5696828fd5724aa5b26412db09163530.html?q=namespace) 
+> The `<yourmessageclientname>` and `<uniqueID>` can be any random unique identifier. `<yourorgname>` would be your org name without '-' or any special character.  Please make sure that namespace does not exceed 24 characters. For more details regarding syntax, size and characters allowed in namespace are mentioned [here](https://help.sap.com/viewer/bf82e6b26456494cbdd197057c09979f/Cloud/en-US/5696828fd5724aa5b26412db09163530.html?q=namespace)
+6. Check if the Cloud Foundry Space you will be deploying the application has the following entitlements:
+
+| Service                           | Plan       | Number of Instances |
+|-----------------------------------|------------|:-------------------:|
+| Destination                       | lite       |          1          |
+| Enterprise Messaging              | default    |          1          |
+| SAP HANA Schemas & HDI Containers | hdi-shared |          1          |
+| SAP SuccessFactors Extensibility  | api-access |          1          |
+| SAP Hana Service                  | 64standard |          1          |
+| Application Runtime               |            |          3          |
        
+7. Create SAP Hana Service instance with plan 64standard as described [here](https://help.sap.com/viewer/cc53ad464a57404b8d453bbadbc81ceb/Cloud/en-US/21418824b23a401aa116d9ad42dd5ba6.html)
+> If there are multiple instances of SAP Hana Service in the space, please modify the  mta.yaml as shown below. Replace <database_guid> with the id of the databse you would like to bind the application with :
+ ```
+ # Hana HDI Container
+  - name: cloud-cap-xf-sf-db-hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+      config:
+        database_id: <database_guid>
+    properties:
+      hdi-container-name: '${service-name}'
+    type: com.sap.xs.hdi-container
+```
+
 ### Step 3: Deploy the reference application
 
 1. Build the application
@@ -79,8 +104,19 @@ The Run Smooth application is developed using [SAP Cloud Application programming
 	
    `cf deploy cloud-cap-xf-sf_0.0.1.mtar`
 
+### Step 4: Enterprise Messaging Application
+1. Follow the steps [here](https://help.sap.com/viewer/bf82e6b26456494cbdd197057c09979f/Cloud/en-US/d6389ec67f2e451b8d4cadc19c4bc369.html) to subscribe to the Enterprise Messaging Business Application
+2. Follow the steps [here](https://help.sap.com/viewer/bf82e6b26456494cbdd197057c09979f/Cloud/en-US/637d331010e54a2999e2f023d2de1130.html) to add the necessary roles to the user to access the Enterprise Messaging Business Application
+3. Open your global account, then your subaccount.
+4. In the left pane, choose Subscriptions.
+5. Choose Enterprise Messaging and click on `Go to Application` link.
+> The Go to Application link becomes available once the subscription is activated.
+6. In the application, choose the messaging client (specified in the Project Configuration>Step 2.5) created when the application is deployed.
+7. Go to the tab `Queue`.
+8. From the table, click on Icon for 'Subscription' (under Actions) for the Queue created when the application was deployed.
+9. From the pop-up window, please note the topic name for future reference (Step 5.8)
 
-### Step 4: Setting up SuccessFactors system
+### Step 5: Setting up SuccessFactors system
 
 In this step, you will configure the successFactors system to send message to the Enterprise Messaging service on Cloud platform. 
 
@@ -136,7 +172,7 @@ In this step, you will configure the successFactors system to send message to th
       
       REST API URL: give the URL of the queue
       `https://enterprise-messaging-pubsub.cfapps.eu10.hana.ondemand.com/messagingrest/v1/topics/<topicName>/messages`
-      > By default topic name for this application is `sfemessage` 
+      > Use the topic name from Step 4.9
  
       Authentication type: OAuth
  
