@@ -77,14 +77,8 @@ resources:
 
 # Enterprise Messaging Service
   - name: sfextension-epm
-# If using Trial Landscape then Service Plan for Enterprise Messaging should be DEV
-#     parameters:
-#       path: ./dev.json 
-#       service: enterprise-messaging
-#       service-plan: dev
-# # If using Trial Landscape then Service Plan for Enterprise Messaging should be DEFAULT
     parameters:
-      path: ./default.json 
+      path: ./em.json 
       service: enterprise-messaging
       service-plan: default
     type: org.cloudfoundry.managed-service
