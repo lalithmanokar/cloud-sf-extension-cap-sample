@@ -52,8 +52,10 @@ resources:
 # Hana HDI Container
   - name: cloud-cap-xf-sf-db-hdi-container
     parameters:
-      service: hanatrial
+      service: hana
       service-plan: hdi-shared
+      #config:
+        #database_id: <database_guid>
     properties:
       hdi-container-name: '${service-name}'
     type: com.sap.xs.hdi-container
@@ -75,10 +77,16 @@ resources:
 
 # Enterprise Messaging Service
   - name: sfextension-epm
-   parameters:
-     path: ./em.json 
-     service: enterprise-messaging
-     service-plan: default
+# If using Trial Landscape then Service Plan for Enterprise Messaging should be DEV
+#     parameters:
+#       path: ./dev.json 
+#       service: enterprise-messaging
+#       service-plan: dev
+# # If using Trial Landscape then Service Plan for Enterprise Messaging should be DEFAULT
+    parameters:
+      path: ./default.json 
+      service: enterprise-messaging
+      service-plan: default
     type: org.cloudfoundry.managed-service
 
 # Success Factors Extensibility Service
@@ -89,3 +97,4 @@ resources:
       config:
         systemName: SFTestSystem # <-- Please Specify Your SuccessFactors System Name, "SFTestSystem" is a Dummy Name
     type: org.cloudfoundry.managed-service
+    
