@@ -76,7 +76,7 @@ The Run Smooth application is developed using [SAP Cloud Application programming
  # Hana HDI Container
   - name: cloud-cap-xf-sf-db-hdi-container
     parameters:
-      service: hana-db
+      service: hana
       service-plan: hdi-shared
       config:
         database_id: <database_guid>
