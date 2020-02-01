@@ -100,7 +100,7 @@ The Run Smooth application is developed using [SAP Cloud Application programming
 
 4. Deploy the application
 
-	Navigate to mta_archives folder.
+	Navigate to mta_archives folder and run the below command from CLI
 
    `cf deploy cloud-cap-xf-sf_0.0.1.mtar`
 
@@ -178,7 +178,7 @@ In this step, you will configure the successFactors system to send message to th
 
       Authentication type: OAuth
 
-      OAuth Configuration: Select the configuration created in Step 2.
+      OAuth Configuration: Select the configuration created in Step 2 above on Setting Outbound OAuth Configurations.
 
       ![Destination settings](./documentation/images/DestinationSettings.PNG)
 
@@ -197,42 +197,49 @@ In this step, you will configure the successFactors system to send message to th
 
 ## Demo Script
 
-1. Login to SF demo instance with sfadmin user.
-![step1](./documentation/images/step1.PNG)
-2. Search for Employee David Leal (dleal) in the Employee Directory
-3. Select Employee David Leal
+1. In the command line interface run the command `cf apps`
+2. Find URL for app `cloud-cap-xf-sf-app` which is the launch URL for Run Smooth application
+3. Launch the URL and login as dleal(David Leal)
 > You can choose any employee who is a Manager.
-4. Click on Actions button and Select Org Chart
+4. Click on Project Details tile
+ ![Project Details](./documentation/images/App.PNG)
+5. Click on Project
+6. Click on Assign Employee
+7. All employees reporting to David Leal is displayed.
+8. Select 1 or more employees and assign them to projects
+9. Login to SF demo instance with sfadmin user.
+![step1](./documentation/images/step1.PNG)
+10. Search for Employee David Leal (dleal) in the Employee Directory
+11. Select Employee David Leal
+12. Click on Actions button and Select Org Chart
 ![step4](./documentation/images/step4.PNG)
-5. Choose an employee who is reporting to 'David Leal e.g Penelope Miller(pmiller)
-6. Click on Take Actions button and Select Termination
+13. Choose an employee who is reporting to 'David Leal e.g Penelope Miller(pmiller) and assigned to the project in step 8
+14. Click on Take Actions button and Select Termination
 ![step6](./documentation/images/step6.PNG)
-7. Set values for
+15. Set values for
       - Termination Date (Recommended to use a future date. For example, a date one week from the current date)
       - Termination Reason - Early Retirement
       - Ok to Rehire - Yes
       - Regret Termination - Yes
 ![step7](./documentation/images/step7.PNG)
-8. Click on Save.
-9. In the window `Please confirm your request`, click on the 'Show workflow participants'.
-10. Workflow participants would be shown as 1. Paul Atkins (Production Director); 2. Tessa Walker (HR Business Partner Global), Christine Dolan (Chief Human Resources Officer)
+16. Click on Save.
+17. In the window `Please confirm your request`, click on the 'Show workflow participants'.
+18. Workflow participants would be shown as 1. Paul Atkins (Production Director); 2. Tessa Walker (HR Business Partner Global), Christine Dolan (Chief Human Resources Officer)
 > This means that Paul Atkins and Tessa Walker (or Christine Dolan) must approve this request to proceed.
-11. Click on Confirm button
-12. Use Proxy Now functionality and Select Target User as Paul Atkins(patkins)
+19. Click on Confirm button
+20. Use Proxy Now functionality and Select Target User as Paul Atkins(patkins)
 ![step12](./documentation/images/step12.PNG)
-13. In the Home page of Paul Atkins click on tile Approve Requests
-14. Click on Approve button for the request for approval of Early Retirement of Penelope Miller
+21. In the Home page of Paul Atkins click on tile Approve Requests
+22. Click on Approve button for the request for approval of Early Retirement of Penelope Miller
 ![step14](./documentation/images/step14.PNG)
-15. Use Proxy Now functonality and Select Target User as Tessa Walker(twalker)
-16. In the Home page of Tessa Walker click on tile Approve Requests
-17. Click on Approve button for the request for approval of Early Retirement of Penelope Miller
-18. Open the Web Application UI for Run Smooth application in browser.
-> In the Step 4 of Configure trust between SF and CP using Extension Factory (see above) you would have already configured Single-Sign On between SAP Cloud Platform Subaccount and SAP SuccessFactors. This is the Identity Provider (IDP) to be used to login to the application. You can find all the IDPs available in the Login page as shown below:
-![ChangeIDP](./documentation/images/ChangeIDP.png)
-19. Choose the SuccessFactors IDP and Login with userId David Leal (dleal) and password (by default, it is same as sfadmin).
-20. Click on notifications tile.
+23. Use Proxy Now functonality and Select Target User as Tessa Walker(twalker)
+24. In the Home page of Tessa Walker click on tile Approve Requests
+25. Click on Approve button for the request for approval of Early Retirement of Penelope Miller
+26. Open the Web Application UI for Run Smooth application in browser.
+27. Login with user David Leal (dleal).
+28. Click on notifications tile.
 ![step20](./documentation/images/step20.PNG)
-21. Notification will be displayed regarding Resignation of Penelope Miller along with her Skillset.
+29. Notification will be displayed regarding Resignation of Penelope Miller along with her Skillset.
 ![step21](./documentation/images/step21.PNG)
 
 ## Known Issues
@@ -241,7 +248,7 @@ No known issues.
 
 ## How to Obtain Support
 
-In case you find a bug, or you need additional support, please open an issue here in GitHub.
+In case you find a bug, or you need additional support, please open an issue [here](https://github.com/SAP-samples/cloud-sf-extension-cap-sample/issues/new) in GitHub.
 
 ## License
 
