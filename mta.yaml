@@ -52,7 +52,7 @@ resources:
 # Hana HDI Container
   - name: cloud-cap-xf-sf-db-hdi-container
     parameters:
-      service: hana
+      service: hana-db
       service-plan: hdi-shared
       #config:
         #database_id: <database_guid>
