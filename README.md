@@ -191,9 +191,8 @@ In this step, you will configure the successFactors system to send message to th
    10. In `Review and Run` tab - click on `Run now`
 
  6. Configuring the event flow. This step ensures that when the event is triggered, the integration created in the above step is run.
-   1. Search for `Intelligent Service Center` in the demo instance search bar and Open it.
-   2. Select `Employment Termination` event. There are many more events available, in our scenario,
-   3. Add integration for the existing flow:
+   1. Click on `Go to ISC` button in the `Review and Run` screen of Integration center.
+   2. Add integration for the existing flow:
       - Click on `Integration` under `Activities`. (on the right-hand side corner)
       - Select the Integration created in the previous step. Click on `Add integration`.
       - Change the 'Timing' of the Integration to 'When the event is published' and save the flow (`Actions > Save Flow`).
