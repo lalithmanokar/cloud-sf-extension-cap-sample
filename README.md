@@ -174,7 +174,11 @@ In this step, you will configure the successFactors system to send message to th
 
       REST API URL: give the URL of the queue
       `https://enterprise-messaging-pubsub.cfapps.eu10.hana.ondemand.com/messagingrest/v1/topics/<topicName>/messages`
-      > Use the topic name from Step 4.9
+      > Use the topic name from Step 4.9 after double encoding.
+      
+      > For example, if your topic name is `sfext/sf/sample/myMessaging/d41d/sfemessage`, then the `/` should be replaced with `%252F`.
+      The resultant topic name will be `sfext%252Fsf%252Fsample%252FmyMessaging%252Fd41d%252Fsfemessage`.
+      
 
       Authentication type: OAuth
 
