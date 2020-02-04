@@ -5,9 +5,9 @@
 
 This application showcases:
 1. Capabilities of SAP Cloud Platform Extension Factory
-2. Building of application on f SAP Cloud Platform using SAP Cloud Application Programming Model(CAP)
+2. Building application on SAP Cloud Platform using SAP Cloud Application Programming Model(CAP)
 3. Building and Event driven extension application using SAP CP Enterprise Messaging
-4. Consuming REST API’s from SAP Successfactors uising SAP CP Connectivity Service
+4. Consuming REST API’s from SAP Successfactors using SAP CP Connectivity Service
 
 
 ## Business Scenario:
